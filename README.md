@@ -1,4 +1,4 @@
-# super-hero-api
+# pokemon-api
 
 ## Project setup
 ```
