@@ -105,7 +105,5 @@ export default {
   margin-top: 20px;
   height: 100%;
 }
-.pokemon-details {
-  margin: 100px 30px;
-}
+
 </style>

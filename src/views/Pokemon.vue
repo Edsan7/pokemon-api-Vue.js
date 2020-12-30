@@ -79,4 +79,7 @@ export default {
 </script>
 
 <style scoped>
+.pokemon-details {
+  margin: 100px 30px;
+}
 </style>
