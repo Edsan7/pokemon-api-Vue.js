@@ -28,7 +28,7 @@
               <div class="pokemon-card-specs">
                 <h4 style="text-align: center">Informações</h4>
                 <p>
-                  <strong> Altura:</strong>
+                  <strong> Altura: </strong>
                   {{ apiResponse.height / 10 }} metros.
                 </p>
                 <p>
@@ -38,10 +38,15 @@
 
                 <p><strong>Ordem:</strong> {{ apiResponse.order }}.</p>
 
-                <p>
-                  <strong>Tipo:</strong>
-                  {{ apiResponse.types[0].type.name }}.
-                </p>
+                <div style="display: flex">
+                  <p><strong> Tipo: </strong></p>
+                  <span
+                    v-for="(typeObject, index) in apiResponse.types"
+                    :key="index"
+                  >
+                    {{ typeObject.type.name }}.
+                  </span>
+                </div>
 
                 <p>
                   <strong>Experiência base:</strong>
@@ -57,9 +62,9 @@
                     v-for="(abilityObject, index) in apiResponse.abilities"
                     :key="index"
                   >
-                    <strong>{{
-                      abilityObject.ability.name | capitalize
-                    }}</strong>
+                    <strong>
+                      {{ abilityObject.ability.name | capitalize }}
+                    </strong>
                     {{
                       abilityObject.is_hidden ? " - oculta." : " - não oculta."
                     }}
@@ -83,7 +88,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .pokemon-card {
   border-radius: 5px;
   background-color: rgb(241, 241, 241);

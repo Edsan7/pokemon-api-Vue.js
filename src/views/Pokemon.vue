@@ -69,8 +69,8 @@ export default {
   },
   mounted() {
     const pokemonId = this.$route.params.id;
-    ApiServices.getPokemon(`pokemon/${pokemonId}`, (response) => {
-      this.apiResponse = response.data;
+    ApiServices.getPokemon(`pokemon/${pokemonId}`, (apiResponse) => {
+      this.apiResponse = apiResponse;
     });
 
     this.isLoading = false;

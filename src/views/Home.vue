@@ -2,13 +2,9 @@
   <div class="home">
     <b-container>
       <h1>Lista de Pokemons</h1>
-      <div v-if="isLoading">
-        Carregando...
-        {{ isLoading }}
-      </div>
+      <div v-if="isLoading"><p>Carregando...</p></div>
       <div v-else>
-        {{ isLoading }}<br />
-        {{ apiResponse.count }} total de pokemons<br />
+        <p>{{ apiResponse.count }} pokemons</p>
         <div class="pokemon">
           <div v-for="(pokemon, index) in apiResponse.results" :key="index">
             <router-link :to="`${pokemon.url.substring(26)}`">{{
