@@ -5,8 +5,17 @@
       <div v-if="isLoading"><p>Carregando...</p></div>
       <div v-else>
         <p>{{ apiResponse.count }} pokemons</p>
+
+        <b-form-input
+          id="input-1"
+          v-model="search"
+          type="text"
+          placeholder="Busca por nome..."
+          required
+        ></b-form-input>
+
         <div class="pokemon">
-          <div v-for="(pokemon, index) in apiResponse.results" :key="index">
+          <div v-for="(pokemon, index) in searchPokemon" :key="index">
             <router-link :to="`${pokemon.url.substring(26)}`">{{
               pokemon.name | capitalize
             }}</router-link>
@@ -52,6 +61,7 @@ export default {
       page: 1,
       apiResponse: null,
       isLoading: false,
+      search: "",
     };
   },
   methods: {
@@ -59,10 +69,9 @@ export default {
       this.isLoading = true;
       const nextPage = this.apiResponse.next.substring(26);
 
-      ApiServices.getPokemon(
-        nextPage,
-        (apiResponse) => (this.apiResponse = apiResponse)
-      );
+      ApiServices.getPokemon(nextPage, (apiResponse) => {
+        this.apiResponse = apiResponse;
+      });
 
       this.page++;
       this.isLoading = false;
@@ -80,13 +89,20 @@ export default {
       this.isLoading = false;
     },
   },
+  computed: {
+    searchPokemon: function () {
+      return this.apiResponse.results.filter((pokemon) =>
+        pokemon.name.includes(this.search.toLowerCase().trim())
+      );
+    },
+  },
   mounted() {
-    ApiServices.getPokemon(
-      "pokemon/",
-      (apiResponse) => (this.apiResponse = apiResponse)
-    );
-    console.log(this.apiResponse.previous);
-    console.log(this.apiResponse.next);
+    this.isLoading = true;
+    
+    ApiServices.getPokemon("pokemon/", (apiResponse) => {
+      this.apiResponse = apiResponse;
+    });
+
     this.isLoading = false;
   },
 };
